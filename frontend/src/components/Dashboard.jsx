@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchData } from "../api/data.js";
+import BarChartSection from "./BarChartSection.jsx";
 
 function Dashboard() {
   const [data, setData] = useState([]);
@@ -58,9 +59,10 @@ function Dashboard() {
   );
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 space-y-6">
+    <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-base-100 text-base-content">
       <h1 className="text-2xl font-bold">Dashboard</h1>
 
+      {/* Filters */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {renderDropdown("End Year", "end_year")}
         {renderDropdown("Topic", "topic")}
@@ -73,10 +75,34 @@ function Dashboard() {
         {renderDropdown("City", "city")}
       </div>
 
-      <div className="bg-base-200 p-4 rounded shadow">
-        <p>📊 Filtered Entries: {filteredData.length}</p>
-        {/* You can show a preview table/list here */}
+      {/* Summary Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="stat bg-base-200 shadow">
+          <div className="stat-title">Total Entries</div>
+          <div className="stat-value">{filteredData.length}</div>
+        </div>
+        <div className="stat bg-base-200 shadow">
+          <div className="stat-title">Avg Intensity</div>
+          <div className="stat-value">
+            {(
+              filteredData.reduce((sum, d) => sum + (d.intensity || 0), 0) /
+              (filteredData.length || 1)
+            ).toFixed(2)}
+          </div>
+        </div>
+        <div className="stat bg-base-200 shadow">
+          <div className="stat-title">Avg Likelihood</div>
+          <div className="stat-value">
+            {(
+              filteredData.reduce((sum, d) => sum + (d.likelihood || 0), 0) /
+              (filteredData.length || 1)
+            ).toFixed(2)}
+          </div>
+        </div>
       </div>
+
+      {/* Bar Chart */}
+      <BarChartSection data={filteredData} />
     </div>
   );
 }
