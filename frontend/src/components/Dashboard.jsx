@@ -1,15 +1,23 @@
+import { useEffect, useState } from "react";
+import { fetchData } from "../api/data.js";
+
 function Dashboard() {
+  const [entries, setEntries] = useState([]);
+
+  useEffect(() => {
+    const load = async () => {
+      const data = await fetchData();
+      setEntries(data);
+    };
+    load();
+  }, []);
+
   return (
-    <div className="flex-1 p-4 overflow-y-auto">
-      <h2 className="text-lg font-semibold mb-4">Data Visualizations</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Charts will go here */}
-        <div className="bg-base-200 h-64 rounded-lg shadow-md flex items-center justify-center">
-          Chart Placeholder
-        </div>
-        <div className="bg-base-200 h-64 rounded-lg shadow-md flex items-center justify-center">
-          Chart Placeholder
-        </div>
+    <div className="p-4 space-y-4">
+      <h1 className="text-2xl font-bold">Dashboard</h1>
+      <div className="bg-base-200 p-4 rounded shadow">
+        <p>📊 Total Entries: {entries.length}</p>
+        {/* Later: render charts here */}
       </div>
     </div>
   );
