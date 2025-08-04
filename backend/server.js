@@ -7,15 +7,23 @@ import dataRoutes from "./routes/dataRoutes.js";
 dotenv.config();
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
-app.use("/api/data", dataRoutes);
 
+// MongoDB connection
 connectDB();
 
-app.get("/", (req, res) => {
-  res.send("✅ Backend is running & MongoDB connection should be active.");
+// API routes
+app.use("/api/data", dataRoutes);
+
+// Serve frontend
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 const PORT = process.env.PORT || 5000;
