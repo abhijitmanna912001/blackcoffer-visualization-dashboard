@@ -4,9 +4,10 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "dev": "cross-env NODE_ENV=development nodemon server.js",
-    "start": "cross-env NODE_ENV=production node server.js",
-    "seed": "node utils/seedData.js"
+    "seed": "node utils/seedData.js",
+    "build-frontend": "cd ../frontend && npm install && npm run build && rm -rf ./public && mkdir ./public && cp -r ../frontend/dist/* ./public"
   },
   "keywords": [],
   "author": "",
