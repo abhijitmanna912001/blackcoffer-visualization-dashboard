@@ -1,4 +1,5 @@
-const API_BASE = "/api";
+const API_BASE =
+  import.meta.env.MODE === "development" ? "http://localhost:5000/api" : "/api";
 
 export const fetchData = async () => {
   try {
