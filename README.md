@@ -52,10 +52,9 @@ MONGO_DB_NAME=
 MONGO_APP_NAME=
 ⚠️ Note: Replace the above values with your own MongoDB credentials if running locally.
 
-## 🚀 Installation & Setup
+🚀 Installation & Setup
 
-### 1️⃣ Clone the repository
-```bash
+1️⃣ Clone the repository
 git clone https://github.com/abhijitmanna912001/blackcoffer-visualization-dashboard
 cd blackcoffer-visualization-dashboard
 
